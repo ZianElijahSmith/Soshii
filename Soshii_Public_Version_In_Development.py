@@ -18,37 +18,22 @@ Outside contributions are welcomed so long as they conform to using FOSS & the p
 
 
 # command is currently used to install modules with pip if not already installed
-import subprocess, sys
-command = subprocess.os.system
-
-# asks the user if they want to install tweepy if it isn't already installed
-# we need tweepy for Twitter
-def ask_tweepy():
-    # strip() will remove extra spaces, lower() will lower the cases
-    answer = input("Do you want to install tweepy now? y/n?  ").strip().lower()
-    # linux is for GNU/Linux
-    if (answer == 'y') and (sys.platform == 'linux'):
-        command("pip3 install tweepy")
-    # win32 will work regardless if the windows is 32 or 64 bit
-    elif (answer == 'y') and (sys.platform == 'win32'):
-        command("pip install tweepy")
-    # darwin is for mac
-    elif (answer == 'y') and (sys.platform == 'darwin'):
-        command("pip3 install tweepy")
-    elif (answer == 'n'):
-        print("You need tweepy to run this, exiting")
-        quit()
-    else:
-        print("please use y/n")
-        ask()
-        
+import json, requests
 
 try:
     import tweepy
 except(ImportError):
-    print("You need the tweepy module to use this")
-    ask_tweepy()
-    
+    print("You need tweepy to use this\nConsider installing with pip")
+
+try:
+    import requests-oauthlib
+except(ImportError)
+    print("You need requests-oathlib to use this\nConsider installing with pip")
+
+try:
+    import pandas as pd
+except(ImportError)
+    print("You need pands to use this\nConsider installing with pip")
 
 class Soshii(object):
 
@@ -56,7 +41,7 @@ class Soshii(object):
     '''
     Before you can use Socii for social meda platforms like twitter, you will first have to make an access token.
     You can make an access token for twitter by going here: https://developer.twitter.com/en/apps
-    
+
     Instagram API : https://developers.facebook.com/products/instagram/apis/
     '''
     def __init__(self, twitter_pass, twitter_handle, twitter_consumer_key, twitter_consumer_secret, twitter_access_token, twitter_access_token_secret):
@@ -66,21 +51,21 @@ class Soshii(object):
         self.twitter_consumer_secret = twitter_consumer_secret
         self.twitter_access_token = twitter_access_token
         self.twitter_access_token_secret = twitter_access_token_secret
-        
+
     def login_to_twitter(self):
        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
        auth.set_access_token(access_token, access_token_secret)
        api = tweepy.API(auth)
-       
+
     def login_to_instagram(self):
         pass
-        
-        
+
+
     def post_to_twitter(self, text_content, images_or_videos):
         pass #pass for now, we'll fill this up later
-        
+
     def login_to_all(self):
         pass
-        
+
     def post_to_all(self):
-        pass # 
+        pass #
